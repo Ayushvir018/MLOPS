@@ -1,0 +1,23 @@
+Step-1 : Create virtual environment
+
+python -m venv kiet-env
+kiet-env\Scripts\activate
+
+Step-2 : Activae it
+kiet-env\Scripts\activate
+
+Step-3 : Create working directory and switch to that
+mkdir mlops-first-pipelne
+cd mlops-first-pipelne
+
+Step-4 : Install requirements.txt packages
+pip install -r requirements.txt
+
+Step-5 : Implement a simple ML model
+
+Step-6 : Train and save the model
+
+Step-7 : Implement FastAPI and create endpoints
+
+Step-8 : Start the FastAPI
+uvicorn main:app --reload
