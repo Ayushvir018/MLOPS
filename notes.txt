@@ -1,23 +1,99 @@
-Step-1 : Create virtual environment
+==================================
+Phase-1: Machine Learning Foundation for MLOps
+==================================
 
+Step-1: Create virtual env
 python -m venv kiet-env
+
+Step-2: Activate virtual env
+In Mac:
+source kiet-env/bin/activate
+
+In Windows:
 kiet-env\Scripts\activate
 
-Step-2 : Activae it
-kiet-env\Scripts\activate
+Step-3: Create working directory and switch to that
+mkdir mlops-first-pipeline
+cd mlops-first-pipeline
 
-Step-3 : Create working directory and switch to that
-mkdir mlops-first-pipelne
-cd mlops-first-pipelne
-
-Step-4 : Install requirements.txt packages
+Step-4: Install required packages
 pip install -r requirements.txt
 
-Step-5 : Implement a simple ML model
+Step-5: Implement a simple machine learning model
+Step-6: Train and Save the model
+python train.py
 
-Step-6 : Train and save the model
-
-Step-7 : Implement FastAPI and create endpoints
-
-Step-8 : Start the FastAPI
+Step-7: Implement FastAPI and create endpoints
+Step-8: Start the API
 uvicorn main:app --reload
+Or
+python -m uvicorn main:app --reload
+
+
+==================================
+Phase-2: Virtualization with Docker
+==================================
+
+Why we need Docker ?
+- Imagine you are running your code on your laptop with a different programming version and another user is working on a different version...
+
+Reason of failures:
+- Using different programming version
+- Using different version of libraries like scikit-learn, FastAPI
+- Missing Python packages
+- Different OS dependencies
+
+Docker helps package your application code, runtime, dependencies and startup instructions into a standardized image
+
+4 major requirements:
+- Dockerfile - Set of instructions for packaging ML application
+- Image - Packaged reusable application artifact
+- Container - A running instance of the image
+- Port Mapping - Makes the API inside the container accessible from your system
+
+Docker commands:
+docker Ps
+Check running container
+docker ps -a
+check all active/non active container
+
+docker build -t mlops-iris-image-command .
+-t =tag name= name of the image
+
+
+docker run -d -p 8000:8000 --name mlops-cs-container mlops-iris-image-cs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+part 1- What is CI/CD ?
+CI- Continuous Integration- 
+- Developers frequently merge code changes to  repository
+- Automated builds and tests for each change and validate code
+CD- Continuous Delivery/Continuous Deployment
+- Once CI passes, code moves to CD 
+- Automated deployment to production
+- Enables fast, reliable software releases
+
+Automation Testing
+- pytest +Fastapi TestClient + Github actions
+
+
+
+
+Install 2 packages
+pytest-  it discovers and run automated tests and report failure
+httpx- 
+pip install httpx pytest
