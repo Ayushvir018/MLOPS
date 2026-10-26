@@ -1,0 +1,16 @@
+
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Model files
+models/
+
+# Environment variables
+.env
+
+# Test and cache files
+.pytest_cache/
+.ipynb_checkpoints/
