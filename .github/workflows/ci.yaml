@@ -1,57 +1,54 @@
-#github action workflow
-#github automatically looks for workflow file inside .github/workflow/
 
-#give workflow a meaningful name
-name: Iris ML API -CI Pipeline
+# GitHub Actions workflow
+# GitHub automatically looks for workflows inside .github/workflows/
 
-# Define when Github should run the workflow
-on: 
-  #run CI whenever code is pushed to main branch
-    push: 
-        branches:
-            - main
+name: Iris ML API - CI Pipeline
 
-    #run CI whenever a pull request is made to main branch also validate proposed changes before they merge
-    pull_request: 
-        branches:
-        - main
+# Define when GitHub should run the workflow
+on:
+  # Run CI whenever code is pushed to main
+  push:
+    branches:
+      - main
 
-#permissions
+  # Validate pull requests targeting main
+  pull_request:
+    branches:
+      - main
+
+# Permissions
 permissions:
-    contents: read
+  contents: read
 
-#define jobs that meake the pipeline
+# Define jobs that make up the pipeline
 jobs:
-    test-and-build:
-        #Github provide a fresh UbuntuVMfor this job/means where to run the job
-        runs-on: ubuntu-latest
+  test-and-build:
+    # GitHub provides a fresh Ubuntu VM
+    runs-on: ubuntu-latest
 
-        #define the sequence of steps
-            #Step1- Download the repo content to the runner
-            - name: checkout
-              uses: actions/checkout@v4
-            
-            #step2- Install python on runner
-            - name: Install Python on runner
-            uses: actions/setup-python@v5
-            with:
-              python-version: "3.14"
-            #step 3 : Install dependencies
-            - name: Install dependencies
-            run: |
-                python -m pip install --upgrade pip
-                pip install -r requirements.txt
-            #step 4: execute automated tsts
-            - name: Run tests
-            run: python -m pytest -v
+    # Define the sequence of steps
+    steps:
+      # Step 1: Download repository content
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            #step5: Build image only aftertest passed
-            - name : Build Docker Image
-            run: 
-                docker build -t iris-ml-api:${{GITHUB_SHA}} .
+      # Step 2: Install Python
+      - name: Install Python on runner
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirement.txt
+          pip install pytest
 
-              
+      # Step 4: Execute automated tests
+      - name: Run tests
+        run: python -m pytest -v
 
-
-
+      # Step 5: Build Docker image only after tests pass
+      - name: Build Docker Image
+        run: docker build -t iris-ml-api:${{ github.sha }} .
